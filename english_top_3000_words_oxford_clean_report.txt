@@ -1,0 +1,6 @@
+source=Oxford3000 github mirror
+entries=3000
+reused_ipa=1391
+reused_translation=1391
+translated_via_api=1609
+missing_ipa=0

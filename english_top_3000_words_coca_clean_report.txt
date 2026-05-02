@@ -1,0 +1,6 @@
+source=COCA top frequency (github mirror)
+entries=3000
+reused_ipa=2502
+reused_translation=2502
+translated_via_api=498
+missing_ipa=0
