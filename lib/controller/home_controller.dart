@@ -34,12 +34,12 @@ class HomeController extends GetxController {
       allProducts.clear();
       allProducts.assignAll(retrievedProducts);
       _applyFilters();
-      Get.snackbar(
-        "Success",
-        "Products fetched successfully",
-        colorText: Colors.green,
-        backgroundColor: Colors.green[100],
-      );
+      // Get.snackbar(
+      //   "Success",
+      //   "Products fetched successfully",
+      //   colorText: Colors.green,
+      //   backgroundColor: Colors.green[100],
+      // );
     } catch (e) {
       Get.snackbar(
         "Error",
@@ -108,6 +108,24 @@ class HomeController extends GetxController {
 
     products = filtered.toList();
     productShowInUi = List<Product>.from(products);
+    update();
+  }
+
+  sortByPrice({required bool ascending}) {
+    List<Product> sortedProducts = List<Product>.from(productShowInUi);
+    sortedProducts.sort(
+      (a, b) {
+        final aPrice = a.price;
+        final bPrice = b.price;
+
+        if (aPrice == null && bPrice == null) return 0;
+        if (aPrice == null) return 1;
+        if (bPrice == null) return -1;
+
+        return ascending ? aPrice.compareTo(bPrice) : bPrice.compareTo(aPrice);
+      },
+    );
+    productShowInUi = sortedProducts;
     update();
   }
 }

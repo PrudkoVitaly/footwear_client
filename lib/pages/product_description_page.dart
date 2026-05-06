@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:footwear_client/models/product/product.dart';
+import 'package:get/get.dart';
 
 class ProductDescriptionPage extends StatelessWidget {
   const ProductDescriptionPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final args = Get.arguments;
+    final Product? product =
+        args is Map<String, dynamic> ? args['data'] as Product? : null;
+
+    if (product == null) {
+      return Scaffold(
+        appBar: AppBar(title: Text('Product Details'), centerTitle: true),
+        body: Center(child: Text('Product data is unavailable')),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(title: Text('Product Details'), centerTitle: true),
       body: SingleChildScrollView(
@@ -14,8 +27,8 @@ class ProductDescriptionPage extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                'assets/images/img_other.jpg',
+              child: Image.network(
+                product.image ?? 'Url',
                 fit: BoxFit.cover,
                 height: 200,
                 width: double.infinity,
@@ -23,17 +36,17 @@ class ProductDescriptionPage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Text(
-              'Product Name',
+              product.name ?? 'No name',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20),
             Text(
-              'Product Description',
+              product.description ?? 'No description',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
             SizedBox(height: 20),
             Text(
-              'Product Price',
+              product.price?.toString() ?? '0',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
